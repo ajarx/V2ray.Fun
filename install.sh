@@ -147,3 +147,12 @@ echo "输入 v2ray 并回车可以手动管理网页面板相关功能"
 #清理垃圾文件
 rm -rf /root/config.json
 rm -rf /root/install-debian.sh
+
+# enable bbr
+modprobe tcp_bbr
+echo "tcp_bbr" >> /etc/modules-load.d/modules.conf
+echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sysctl -p
+sysctl net.ipv4.tcp_available_congestion_control
+sysctl net.ipv4.tcp_congestion_control
